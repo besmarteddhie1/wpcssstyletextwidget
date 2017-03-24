@@ -1,4 +1,12 @@
 <?php
+/*
+ * @package : emerlard
+ * todo: create subpackage widget
+ * 
+ * 
+ */
+
+
 
 /*
   Plugin Name: Emerlard Packages helpers
@@ -59,13 +67,23 @@ function emerlard_packet_init() {
 add_action( 'widgets_init', 'emerlard_packet_init' );
 
 
-/*
- * start of the class
+
+
+
+/**
+ * Core class used to implement a Text widget.
  * @author eddhie
  * this have adding a property of css or more preciely text to the widget text
  */
 class WP_Widget_CSS_Text extends WP_Widget_Text {
 
+	/**
+	 * setting up the base information for the widget to be able to operatate
+	 * 
+	 * @access private
+	 */
+	
+	
 	private function setupbase( $id_base, $name, $widget_options = array(), $control_options = array() ) {
 		$this->id_base = empty( $id_base ) ? preg_replace( '/(wp_)?widget_/', '', strtolower( get_class( $this ) ) ) : strtolower( $id_base );
 		$this->name = $name;
@@ -73,7 +91,12 @@ class WP_Widget_CSS_Text extends WP_Widget_Text {
 		$this->widget_options = wp_parse_args( $widget_options, array( 'classname' => $this->option_name, 'customize_selective_refresh' => false ) );
 		$this->control_options = wp_parse_args( $control_options, array( 'id_base' => $this->id_base ) );
 	}
-
+	/**
+	 * Sets up a new Text Style CSS widget instance.
+	 *
+	 * 
+	 * @access public
+	 */
 	function __construct() {
 		$widget_ops = array(
 			'classname' => 'WP_Widget_CSS_Text',
@@ -86,13 +109,29 @@ class WP_Widget_CSS_Text extends WP_Widget_Text {
 	}
 
 	
-	
+	/**
+	 * Outputs the Text widget CSS Style settings form.
+	 *
+	 * @access public
+	 *
+	 * @param array $instance Current settings.
+	 */
 	public function form( $instance ) {
 		parent::form( $instance );
 		$CSSStyle = sanitize_text_field( $instance['CSSStyle'] );
 		include 'resource/widget_round_property_form_resource.php';
 	}
 
+	/**
+	 * Handles updating settings for the current Text CSS style widget instance.
+	 *
+	 * @access public
+	 *
+	 * @param array $new_instance New settings for this instance as input by the user via
+	 *                            WP_Widget::form().
+	 * @param array $old_instance Old settings for this instance.
+	 * @return array Settings to save or bool false to cancel saving.
+	 */
 	//todo:should i check more on the cssstyle field?
 	public function update( $new_instance, $old_instance ) {
 		$instance=parent::update( $new_instance, $old_instance );
@@ -100,6 +139,15 @@ class WP_Widget_CSS_Text extends WP_Widget_Text {
 		return $instance;
 	}
 
+	/**
+	 * Outputs the content for the current Text CSS sytle widget instance.
+	 *
+	 * @access public
+	 *
+	 * @param array $args     Display arguments including 'before_title', 'after_title',
+	 *                        'before_widget', and 'after_widget'.
+	 * @param array $instance Settings for the current Text widget instance.
+	 */
 	public function widget( $args, $instance ) {
 
 //The items of the event of the one taht is working with the items whtat is work is impornatntent
