@@ -206,9 +206,6 @@ and open the template in the editor.
 		
 		?>
     </body>
-	<script type="text/javascript">
-		var a = rand();
-		</script>
 </html>
 <?php
 ob_end_flush();

@@ -82,18 +82,22 @@ class WP_Widget_CSS_Text extends WP_Widget_Text {
 		);
 		$control_ops = array( 'width' => 400, 'height' => 350 );
 
-		$this->setupbase( 'CSS Style Text', __( 'CSS Style Text' ), $widget_ops, $control_ops );
+		$this->setupbase( '', __( 'CSS Style Text' ), $widget_ops, $control_ops );
 	}
 
 	
 	
 	public function form( $instance ) {
 		parent::form( $instance );
+		$CSSStyle = sanitize_text_field( $instance['CSSStyle'] );
 		include 'resource/widget_round_property_form_resource.php';
 	}
 
+	//todo:should i check more on the cssstyle field?
 	public function update( $new_instance, $old_instance ) {
-		return parent::update( $new_instance, $old_instance );
+		$instance=parent::update( $new_instance, $old_instance );
+		$instance['CSSStyle'] = $new_instance['CSSStyle'];
+		return $instance;
 	}
 
 	public function widget( $args, $instance ) {
