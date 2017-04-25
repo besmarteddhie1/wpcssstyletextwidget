@@ -176,7 +176,18 @@ class WP_Widget_CSS_Text extends WP_Widget_Text {
 		//conclude result
 		//domdoucment is representation of domojbect in the moreory it is not html thus we need to save the html from it
 		//very interesting dom concept including the xml?
-		echo $mdom->saveHTML();
+		$widget_css_text = $mdom->saveHTML();
+		//todo:find a better event name?
+				/**
+		 * Filters the content of the Text CSS widget.
+		 *
+		 *
+		 * @param string         $widget_css_text The widget content.
+		 * @param array          $instance    Array of settings for the current widget.
+		 * @param WP_Widget_CSS_Text $this        Current Text widget instance.
+		 */
+		$widget_css_text=apply_filters('widget_css_text_init', $widget_css_text, $instance, $this);
+		echo $widget_css_text;
 	}
 
 }
